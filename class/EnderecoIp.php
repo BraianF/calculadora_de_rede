@@ -4,8 +4,6 @@
 	class EnderecoIp {
 		private $ip;
 		private $mascaraDeRede;
-		private $quantidadeDeHosts;
-		private $quantidadeDeSubredes;
 		
 		/**
 		 * EnderecoIp constructor.
@@ -102,13 +100,46 @@
 			return false;
 		}
 		
+//		Mostra o endereco de broadcast
 		public function broadcast($ip, $mascaraDeRede){
+//			Transforma a mascara de rede cidr para formato ip
 			$mascaraDeRede = $this->cidrParaMascaraDeRede($mascaraDeRede);
 			
-			$ip_broadcast = long2ip(ip2long($ip) | (~ip2long($mascaraDeRede)));
+//			Inverte os bits de $mascaraDeRede
+//			Usa OR inclusivo para ativar os bits que estão em $ip ou $mascaraDeRede
+			$enderecoDeBroadcast = long2ip(ip2long($ip) | (~ip2long($mascaraDeRede)));
 			
-			return $ip_broadcast;
+			return $enderecoDeBroadcast;
+		}
+		
+//		Retorna o primeiro endereço da rede
+//		Funciona do mesmo modo que a funcao do endereco de rede, mas adiciona 1 ao ip
+		public function primeiroHost($ip, $mascaraDeRede) {
+//			O << desloca os bits de 1 em 32 - $cidr passos para a esquerda. Cada passo significa "multiplica por dois"
+//			Ou seja, se o cidr for 24, desloca 8 bits a esquerda, levando ao numero de 256
+			$bitsDeRede = -1 << (32 - (int)$mascaraDeRede);
+//			Utiliza o operador bit a bit AND para retornar os bits ativos tanto no $ip e em $bitsDeRede
+			$primeiroHost = long2ip(((ip2long($ip)) & ($bitsDeRede)) +1);
+			return $primeiroHost;
+		}
+		
+		public function ultimoHost($ip, $mascaraDeRede){
+			//			Transforma a mascara de rede cidr para formato ip
+			$mascaraDeRede = $this->cidrParaMascaraDeRede($mascaraDeRede);
+
+//			Inverte os bits de $mascaraDeRede
+//			Usa OR inclusivo para ativar os bits que estão em $ip ou $mascaraDeRede
+			$enderecoDeBroadcast = long2ip((ip2long($ip) | (~ip2long($mascaraDeRede))) -1);
 			
+			return $enderecoDeBroadcast;
+		}
+		
+		public function quantidadeDeHosts($ip, $mascaraDeRede){
+			$primeiroHost = $this->primeiroHost($ip, $mascaraDeRede);
+			$ultimoHost = $this->broadcast($ip, $mascaraDeRede);
+			
+			$quantidadeDeHosts = ip2long($ultimoHost) - ip2long($primeiroHost);
+			return $quantidadeDeHosts;
 		}
 
 		

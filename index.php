@@ -62,13 +62,12 @@ https://blog.alura.com.br/como-calcular-mascaras-de-sub-rede/*/
 						<label class="sr-only" for="enderecoIp">Endereco IP</label>
 						<input type="text" class="form-control" id="enderecoIp" name="enderecoIP" placeholder="Endereco IP" required>
 						<label class="sr-only" for="mascaraDeRede">Máscara de rede</label>
-						<select id="mascaraDeRede" class="custom-select" name="mascaraDeRede">
+						<select id="mascaraDeRede" class="custom-select ml-2" name="mascaraDeRede">
 							<?php
 								for ($i = 1; $i < 33; $i++){
 									echo '<option value="'.$i.'">'.$i.'</option>';
 								}
 							?>
-							
 						</select>
 					</div>
 					<div class="input-group mb-2">
@@ -94,7 +93,9 @@ https://blog.alura.com.br/como-calcular-mascaras-de-sub-rede/*/
 								echo '<p>Máscara de rede: '.$enderecoIp->cidrParaMascaraDeRede($mascaraDeRede).' = '.$mascaraDeRede.'</p>';
 								echo '<p>Rede: '.$enderecoIp->cidrParaEnderecoDeRede($ip, $mascaraDeRede).'/'.$mascaraDeRede.'</p>';
 								echo '<p>Broadcast: '.$enderecoIp->broadcast($ip, $mascaraDeRede).'</p>';
-								
+								echo '<p>Primeiro host: '.$enderecoIp->primeiroHost($ip, $mascaraDeRede).'</p>';
+								echo '<p>Último host: '.$enderecoIp->ultimoHost($ip, $mascaraDeRede).'</p>';
+								echo '<p>Quantidade de hosts: '.$enderecoIp->quantidadeDeHosts($ip, $mascaraDeRede).'</p>';
 							}
 						?>
 					</div>
