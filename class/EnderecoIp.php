@@ -101,6 +101,15 @@
 			}
 			return false;
 		}
+		
+		public function broadcast($ip, $mascaraDeRede){
+			$mascaraDeRede = $this->cidrParaMascaraDeRede($mascaraDeRede);
+			
+			$ip_broadcast = long2ip(ip2long($ip) | (~ip2long($mascaraDeRede)));
+			
+			return $ip_broadcast;
+			
+		}
 
 		
 	}

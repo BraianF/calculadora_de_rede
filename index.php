@@ -61,6 +61,7 @@ https://blog.alura.com.br/como-calcular-mascaras-de-sub-rede/*/
 						</div>
 						<label class="sr-only" for="enderecoIp">Endereco IP</label>
 						<input type="text" class="form-control" id="enderecoIp" name="enderecoIP" placeholder="Endereco IP" required>
+						<label class="sr-only" for="mascaraDeRede">Máscara de rede</label>
 						<select id="mascaraDeRede" class="custom-select" name="mascaraDeRede">
 							<?php
 								for ($i = 1; $i < 33; $i++){
@@ -89,8 +90,11 @@ https://blog.alura.com.br/como-calcular-mascaras-de-sub-rede/*/
 					<div  id="cardGastos">
 						<?php
 							if (isset($enderecoIp)){
-								echo '<p>Máscara de rede: '.$enderecoIp->cidrParaMascaraDeRede($mascaraDeRede).'</p>';
-								echo '<p>Endereço de rede: '.$enderecoIp->cidrParaEnderecoDeRede($ip, $mascaraDeRede).'</p>';
+								echo '<p>Endereço: '.$ip.'</p>';
+								echo '<p>Máscara de rede: '.$enderecoIp->cidrParaMascaraDeRede($mascaraDeRede).' = '.$mascaraDeRede.'</p>';
+								echo '<p>Rede: '.$enderecoIp->cidrParaEnderecoDeRede($ip, $mascaraDeRede).'/'.$mascaraDeRede.'</p>';
+								echo '<p>Broadcast: '.$enderecoIp->broadcast($ip, $mascaraDeRede).'</p>';
+								
 							}
 						?>
 					</div>
