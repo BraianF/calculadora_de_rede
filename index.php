@@ -42,7 +42,6 @@ https://blog.alura.com.br/como-calcular-mascaras-de-sub-rede/*/
 		<div class="row flex-nowrap align-items-center">
 			<div class="col text-center">
 				<h1 class="display-4 font-italic">Calculo de rede</h1>
-				<!--					<h1 class="blog-header-logo text-dark">Controle de gastos</h1>-->
 			</div>
 		</div>
 	</header>
@@ -50,9 +49,6 @@ https://blog.alura.com.br/como-calcular-mascaras-de-sub-rede/*/
 
 	<div class="jumbotron p-4 p-md-5 text-white rounded bg-dark" id="formaDePagamento" >
 		<div class="col-md-6 px-0">
-<!--			<h2 class="display-5 font-italic font-weight-bold">Forma de pagamento</h2>-->
-<!--			<p class="lead my-3">Quer pagar à vista? À prazo é melhor?</p>-->
-			
 			<form action="#" method="POST" id="formFormaDePagamento">
 				<div class="form-group">
 					<div class="input-group mb-2">
